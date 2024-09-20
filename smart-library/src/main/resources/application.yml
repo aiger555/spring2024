@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://212.132.97.24:5432/anuralieva
+    username: anuralieva
+    password: oLp7SF06CvNtmztv
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
