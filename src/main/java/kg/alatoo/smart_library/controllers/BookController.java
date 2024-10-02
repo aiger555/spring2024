@@ -1,5 +1,7 @@
 package kg.alatoo.smart_library.controllers;
 
+import kg.alatoo.smart_library.dto.BookUpdateDto;
+import kg.alatoo.smart_library.dto.SuccessDto;
 import kg.alatoo.smart_library.entities.BookEntity;
 import kg.alatoo.smart_library.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
