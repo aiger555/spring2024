@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "books")
 @Getter
@@ -25,5 +27,10 @@ public class BookEntity {
     private String author;
 
     private String genre;
+
+    @ManyToOne
+    private ReaderEntity reader;
+
+    private LocalDateTime returnDate;
 
 }

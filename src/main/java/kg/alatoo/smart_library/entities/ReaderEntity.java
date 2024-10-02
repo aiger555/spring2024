@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "readers")
@@ -36,6 +37,5 @@ public class ReaderEntity {
     private void init(){
         this.registrationDate = LocalDateTime.now();
     }
-
 
 }
