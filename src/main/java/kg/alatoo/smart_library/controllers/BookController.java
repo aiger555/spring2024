@@ -3,8 +3,10 @@ package kg.alatoo.smart_library.controllers;
 import kg.alatoo.smart_library.dto.BookUpdateDto;
 import kg.alatoo.smart_library.dto.SuccessDto;
 import kg.alatoo.smart_library.entities.BookEntity;
+import kg.alatoo.smart_library.exceptions.ApiException;
 import kg.alatoo.smart_library.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +18,13 @@ public class BookController {
     @Autowired
     private BookRepository bookRepository;
 
-    @GetMapping("/get-all")
+
+    @GetMapping("get/{id}")
+    public BookEntity getById(@PathVariable("id") Long id){
+        return bookRepository.findById(id).orElseThrow(() -> new ApiException("Book " + id + " not found", HttpStatusCode.valueOf(404)));
+    }
+
+    @GetMapping("get-all")
     public List<BookEntity> getAll() {
         return bookRepository.findAll();
     }

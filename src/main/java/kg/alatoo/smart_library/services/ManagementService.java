@@ -5,10 +5,12 @@ import kg.alatoo.smart_library.dto.BookOverDueDto;
 import kg.alatoo.smart_library.dto.BookReturnDto;
 import kg.alatoo.smart_library.entities.BookEntity;
 import kg.alatoo.smart_library.entities.ReaderEntity;
+import kg.alatoo.smart_library.exceptions.ApiException;
 import kg.alatoo.smart_library.repositories.BookRepository;
 import kg.alatoo.smart_library.repositories.ReaderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -24,8 +26,8 @@ public class ManagementService {
 
 
     public boolean checkOutUser(BookCheckOut bookCheckOut) {
-        BookEntity book = bookRepository.findById(bookCheckOut.getBookId()).orElseThrow();
-        ReaderEntity reader = readerRepository.findById(bookCheckOut.getReaderId()).orElseThrow();
+        BookEntity book = bookRepository.findById(bookCheckOut.getBookId()).orElseThrow(() -> new ApiException("Book " + bookCheckOut.getBookId() + " not found", HttpStatusCode.valueOf(404)));
+        ReaderEntity reader = readerRepository.findById(bookCheckOut.getReaderId()).orElseThrow(() -> new ApiException("Reader " + bookCheckOut.getReaderId() + " not found", HttpStatusCode.valueOf(404)));
         if (book.getReader() != null) {
             throw new RuntimeException();
         }
@@ -37,7 +39,7 @@ public class ManagementService {
 
     public BookOverDueDto returnBook(BookReturnDto bookReturnDto) {
         BookOverDueDto bookOverDueDto = new BookOverDueDto();
-        BookEntity book = bookRepository.findById(bookReturnDto.getBookId()).orElseThrow();
+        BookEntity book = bookRepository.findById(bookReturnDto.getBookId()).orElseThrow(() -> new ApiException("Book " + bookReturnDto.getBookId() + " not found", HttpStatusCode.valueOf(404)));
 
         Duration overdue = Duration.between(book.getReturnDate(), LocalDateTime.now());
 

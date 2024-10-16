@@ -1,5 +1,6 @@
 package kg.alatoo.smart_library.controllers;
 
+import jakarta.validation.Valid;
 import kg.alatoo.smart_library.dto.BookCheckOut;
 import kg.alatoo.smart_library.dto.BookOverDueDto;
 import kg.alatoo.smart_library.dto.BookReturnDto;
@@ -21,12 +22,12 @@ public class ManagementController {
     private ManagementService managementService;
 
     @PostMapping("/check-out-book")
-    public SuccessDto checkOutBook(@RequestBody BookCheckOut bookCheckOut){
+    public SuccessDto checkOutBook(@RequestBody @Valid BookCheckOut bookCheckOut) {
         return new SuccessDto(managementService.checkOutUser(bookCheckOut));
     }
 
     @PostMapping("/return-book")
-    public BookOverDueDto returnBook(@RequestBody BookReturnDto bookReturnDto){
+    public BookOverDueDto returnBook(@RequestBody BookReturnDto bookReturnDto) {
         return managementService.returnBook(bookReturnDto);
     }
 
